@@ -93,6 +93,7 @@ def main():
     # noinspection PyTypeChecker
     signal.signal(signal.SIGABRT, worker_shutdown_wrapper)
 
+    # start worker, blocks forever
     worker.start()
 
 
