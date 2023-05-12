@@ -1,5 +1,6 @@
 cloud_api_key: "ala-bala-portocala"
 cloud_data_endpoint_bme680: "localhost:8080/bme680"
 cloud_pusher_type : "CloudHttpPusher"
+worker_polling_interval: 10
 bme680_sensor_type: "Bme680Mock"
 bme680_sensor_i2c_address: 0x76

@@ -1,6 +1,7 @@
 import logging
 import requests
 
+import utils
 from bme680_sensor.data import Bme680Values
 from cloud_pusher.abstractions import CloudPusherBase
 from config import Configurator
@@ -12,6 +13,8 @@ class CloudHttpPusher(CloudPusherBase):
     """
 
     def __init__(self, configurator: Configurator):
+        utils.guard_against_none(configurator, "configurator")
+
         self._logger = logging.getLogger("CloudHttpPusher")
         self._config = configurator
 
