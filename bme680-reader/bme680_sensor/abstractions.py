@@ -1,6 +1,7 @@
 import abc
 
 from bme680_sensor.data import Bme680Values
+from cloud_pusher.abstractions import CloudPusherBase
 
 
 class Bme680Base(abc.ABC):
@@ -19,5 +20,11 @@ class Bme680Base(abc.ABC):
     def get_sensor_data(self) -> Bme680Values:
         """
         Get sensor data
+        """
+        raise NotImplementedError
+
+    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase):
+        """
+        Pushes data to the cloud
         """
         raise NotImplementedError

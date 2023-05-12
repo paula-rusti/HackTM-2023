@@ -10,6 +10,8 @@ class Bme680Values:
     ----------
     sensor_type: str
         Sensor type
+    timestamp: int
+        Timestamp in milliseconds
     temperature: float
         Temperature in degrees Celsius
     humidity: float
@@ -21,7 +23,14 @@ class Bme680Values:
     """
 
     sensor_type: str
+    timestamp: int
     temperature: float
     humidity: float
     pressure: float
     gas_resistance: float
+
+    def to_dict(self) -> dict:
+        """
+        Convert the dataclass to a dictionary
+        """
+        return dataclasses.asdict(self)

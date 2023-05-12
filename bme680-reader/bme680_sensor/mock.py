@@ -1,7 +1,9 @@
+import datetime
 import logging
 
 from bme680_sensor.abstractions import Bme680Base
 from bme680_sensor.data import Bme680Values
+from cloud_pusher.abstractions import CloudPusherBase
 
 
 class Bme680Mock(Bme680Base):
@@ -18,8 +20,17 @@ class Bme680Mock(Bme680Base):
     def get_sensor_data(self) -> Bme680Values:
         return Bme680Values(
             sensor_type="Bme680Mock",
+            timestamp=int(datetime.datetime.now().timestamp() * 1000),
             temperature=20.0,
             humidity=50.0,
             pressure=1000.0,
             gas_resistance=10000.0,
         )
+
+    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase):
+        """
+        Pushes data to the cloud
+        """
+        self._logger.info("Pushing data to cloud")
+        data = self.get_sensor_data()
+        cloud_pusher.push_bme680_data(data)

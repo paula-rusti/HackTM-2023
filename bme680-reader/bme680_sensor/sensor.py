@@ -1,7 +1,9 @@
+import datetime
 import logging
 
 from bme680_sensor.abstractions import Bme680Base
 from bme680_sensor.data import Bme680Values
+from cloud_pusher.abstractions import CloudPusherBase
 
 try:
     import bme680
@@ -33,6 +35,7 @@ class Bme680Bosh(Bme680Base):
         if data:
             return Bme680Values(
                 sensor_type="Bme680Bosh",
+                timestamp=int(datetime.datetime.now().timestamp() * 1000),
                 temperature=data.temperature,
                 humidity=data.humidity,
                 pressure=data.pressure,
@@ -40,3 +43,11 @@ class Bme680Bosh(Bme680Base):
             )
         else:
             self._logger.warning("Could not read sensor data")
+
+    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase):
+        """
+        Pushes data to the cloud
+        """
+        self._logger.info("Pushing data to cloud")
+        data = self.get_sensor_data()
+        cloud_pusher.push_bme680_data(data)

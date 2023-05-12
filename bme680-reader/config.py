@@ -12,10 +12,26 @@ def yaml_config_settings_source(settings):
 
 
 class Configurator(BaseSettings):
-    """Application configuration."""
+    """
+    Application configuration.
+
+    Attributes:
+    ----------
+    cloud_api_key: str
+        API key for the cloud service
+    cloud_data_endpoint_bme680: str
+        Endpoint for pushing BME680 data to the cloud
+    cloud_pusher_type: str
+        Type of cloud pusher to use
+    bme680_sensor_type: str
+        Type of BME680 sensor to use
+    bme680_sensor_i2c_address: int
+        I2C address of the BME680 sensor
+    """
 
     cloud_api_key: str
     cloud_data_endpoint_bme680: str
+    cloud_pusher_type: str
 
     bme680_sensor_type: str = "Bme680Bosh"
     bme680_sensor_i2c_address: int = 118
