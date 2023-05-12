@@ -32,6 +32,7 @@ class Bme680Bosh(Bme680Base):
         data = self._sensor.get_sensor_data()
         if data:
             return Bme680Values(
+                sensor_type="Bme680Bosh",
                 temperature=data.temperature,
                 humidity=data.humidity,
                 pressure=data.pressure,

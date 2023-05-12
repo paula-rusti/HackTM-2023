@@ -17,6 +17,7 @@ class Bme680Mock(Bme680Base):
 
     def get_sensor_data(self) -> Bme680Values:
         return Bme680Values(
+            sensor_type="Bme680Mock",
             temperature=20.0,
             humidity=50.0,
             pressure=1000.0,

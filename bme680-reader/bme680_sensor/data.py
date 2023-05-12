@@ -8,6 +8,8 @@ class Bme680Values:
 
     Arguments
     ----------
+    sensor_type: str
+        Sensor type
     temperature: float
         Temperature in degrees Celsius
     humidity: float
@@ -18,6 +20,7 @@ class Bme680Values:
         Gas resistance in Ohms
     """
 
+    sensor_type: str
     temperature: float
     humidity: float
     pressure: float
