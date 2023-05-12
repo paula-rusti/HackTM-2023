@@ -1,8 +1,18 @@
-from bme680_sensor.factory import Bme680SensorFactory
+import logging
+
+from config import Configurator
 
 
 def main():
-    f = Bme680SensorFactory()
+    main_logger = logging.getLogger("main")
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+    main_logger.info("Hello world.")
+
+    configurator = Configurator()
 
 
 if __name__ == "__main__":

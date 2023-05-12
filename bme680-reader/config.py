@@ -11,7 +11,7 @@ def yaml_config_settings_source():
         return yaml.safe_load(file)
 
 
-class ApplicationConfig(BaseSettings):
+class Configurator(BaseSettings):
     """Application configuration."""
 
     cloud_api_key: str
