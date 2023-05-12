@@ -33,6 +33,8 @@ class Configurator(BaseSettings):
     cloud_data_endpoint_bme680: str
     cloud_pusher_type: str
 
+    worker_polling_interval: int
+
     bme680_sensor_type: str = "Bme680Bosh"
     bme680_sensor_i2c_address: int = 118
 
