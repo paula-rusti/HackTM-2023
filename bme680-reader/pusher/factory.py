@@ -1,6 +1,7 @@
 from config import Configurator
 from pusher.debug_pusher import DebugCloudPusher
 from pusher.http_pusher import HttpCloudPusher
+from pusher.rabbitmq_pusher import RabbitMqPusher
 
 
 class CloudPusherFactory:
@@ -14,5 +15,7 @@ class CloudPusherFactory:
             return HttpCloudPusher(configurator)
         elif cloud_pusher_type == "DebugCloudPusher":
             return DebugCloudPusher(configurator)
+        elif cloud_pusher_type == "RabbitMqPusher":
+            return RabbitMqPusher(configurator)
         else:
             raise ValueError(f"Unknown cloud pusher type: {cloud_pusher_type}")

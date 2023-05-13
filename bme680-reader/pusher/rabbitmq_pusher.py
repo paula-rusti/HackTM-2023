@@ -17,12 +17,13 @@ class RabbitMqPusher(CloudPusherBase):
         self._api_key = self._config.cloud_api_key
         self._bme_680_endpoint = self._config.cloud_data_endpoint_bme680
 
-        rabbit_mq_connection_string = (
-            f"amqp://{self._api_key}:{self._api_key}@{self._bme_680_endpoint}/"
-        )
+        host, virtual_host = self._bme_680_endpoint.split('/')
 
+        credentials = pika.PlainCredentials('vjrlxdnk', self._api_key)
         self._connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host=rabbit_mq_connection_string)
+            pika.ConnectionParameters(
+                host=host, virtual_host=virtual_host, credentials=credentials
+            )
         )
         self._channel = self._connection.channel()
         self._channel.exchange_declare(exchange="sensor-data", exchange_type="fanout")
