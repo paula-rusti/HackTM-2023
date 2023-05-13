@@ -1,0 +1,1 @@
+journalctl -u bme680-reader.service

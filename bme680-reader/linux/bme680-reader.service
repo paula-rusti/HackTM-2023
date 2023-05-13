@@ -6,7 +6,8 @@ After=local-fs.target network-online.target
 Restart=on-failure
 RestartSec=5s
 User=paula
-ExecStart=/usr/bin/python3 /home/pi/bme680-reader/main.py
+WorkingDirectory=/home/paula/bme680-reader/
+ExecStart=/usr/bin/python3 /home/paula/bme680-reader/main.py
 
 [Install]
 WantedBy=multi-user.target
