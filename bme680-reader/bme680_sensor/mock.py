@@ -27,10 +27,15 @@ class Bme680Mock(Bme680Base):
             gas_resistance=10000.0,
         )
 
-    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase):
+    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase) -> bool:
         """
         Pushes data to the cloud
+
+        Returns
+        -------
+        bool
+            True if data was pushed successfully, False otherwise
         """
         self._logger.info("Pushing data to cloud")
         data = self.get_sensor_data()
-        cloud_pusher.push_bme680_data(data)
+        return cloud_pusher.push_bme680_data(data)

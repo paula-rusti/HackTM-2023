@@ -23,8 +23,13 @@ class Bme680Base(abc.ABC):
         """
         raise NotImplementedError
 
-    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase):
+    def push_data_to_cloud(self, cloud_pusher: CloudPusherBase) -> bool:
         """
         Pushes data to the cloud
+
+        Returns
+        -------
+        bool
+            True if data was pushed successfully, False otherwise
         """
         raise NotImplementedError

@@ -40,12 +40,18 @@ class Worker(Shutdownable):
     It reads data from sensors and pushes them to the cloud.
     """
 
-    def __init__(self, sensors: typing.List, cloud_pusher: CloudPusherBase):
+    def __init__(
+        self,
+        sensors: typing.List,
+        cloud_pusher: CloudPusherBase,
+        configurator: Configurator,
+    ):
         self._logger = logging.getLogger("Worker")
         utils.guard_against_none(sensors, "sensors")
 
         self._sensors = sensors
         self._cloud_pusher = cloud_pusher
+        self._worker_polling_interval = configurator.worker_polling_interval
 
         self._logger.info("Starting worker")
         self._is_running = False
@@ -56,14 +62,14 @@ class Worker(Shutdownable):
             for sensor in self._sensors:
                 retry = 0
                 while retry < 3:
-                    ok = sensor.read_data()
+                    ok = sensor.push_data_to_cloud(self._cloud_pusher)
                     if ok:
                         break
                     retry += 1
                     time.sleep(1)
                 if retry >= 3:
                     self._logger.error("Error reading data from sensor")
-                    continue
+            time.sleep(self._worker_polling_interval)
 
     def shutdown(self):
         self._is_running = False
@@ -93,7 +99,7 @@ def main():
     )
 
     # worker
-    worker = Worker([bme680_sensor], cloud_pusher)
+    worker = Worker([bme680_sensor], cloud_pusher, configurator)
 
     # handle signal, shut down worker
     worker_shutdown_wrapper = functools.partial(signal_handler, worker)
