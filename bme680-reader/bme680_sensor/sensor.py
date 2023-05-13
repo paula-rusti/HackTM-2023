@@ -30,24 +30,36 @@ class Bme680Bosh(Bme680Base):
         self._sensor.set_temperature_oversample(bme680.OS_8X)
         self._sensor.set_filter(bme680.FILTER_SIZE_3)
         self._sensor.set_gas_status(bme680.ENABLE_GAS_MEAS)
+        self._sensor.set_gas_heater_temperature(320)
+        self._sensor.set_gas_heater_duration(150)
+        self._sensor.select_gas_heater_profile(0)
 
     def get_sensor_data(self) -> Bme680Values:
         """
         Get sensor data
         """
-        data = self._sensor.get_sensor_data()
-        if data:
+        ok = self._sensor.get_sensor_data()
+        if ok:
             return Bme680Values(
                 sensor_type="Bme680Bosh",
                 location_name=self._config.location_name,
                 timestamp=int(datetime.datetime.now().timestamp() * 1000),
-                temperature=data.temperature,
-                humidity=data.humidity,
-                pressure=data.pressure,
-                gas_resistance=data.gas_resistance,
+                temperature=self._sensor.data.temperature,
+                humidity=self._sensor.data.humidity,
+                pressure=self._sensor.data.pressure,
+                gas_resistance=self._sensor.data.gas_resistance,
             )
         else:
             self._logger.warning("Could not read sensor data")
+            return Bme680Values(
+                sensor_type="Bme680Bosh",
+                location_name=self._config.location_name,
+                timestamp=int(datetime.datetime.now().timestamp() * 1000),
+                temperature=-1,
+                humidity=-1,
+                pressure=-1,
+                gas_resistance=-1,
+            )
 
     def push_data_to_cloud(self, cloud_pusher: CloudPusherBase) -> bool:
         """
