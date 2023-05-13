@@ -1,8 +1,10 @@
 import datetime
 import logging
 
+import utils
 from bme680_sensor.abstractions import Bme680Base
 from bme680_sensor.data import Bme680Values
+from config import Configurator
 from pusher.abstractions import CloudPusherBase
 
 try:
@@ -13,9 +15,11 @@ except ImportError:
 
 
 class Bme680Bosh(Bme680Base):
-    def __init__(self):
+    def __init__(self, configurator: Configurator):
+        utils.guard_against_none(configurator, "configurator")
         self._sensor = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
         self._logger = logging.getLogger("Bme680Bosh")
+        self._config = configurator
 
     def initialize(self):
         """
@@ -35,6 +39,7 @@ class Bme680Bosh(Bme680Base):
         if data:
             return Bme680Values(
                 sensor_type="Bme680Bosh",
+                location_name=self._config.location_name,
                 timestamp=int(datetime.datetime.now().timestamp() * 1000),
                 temperature=data.temperature,
                 humidity=data.humidity,

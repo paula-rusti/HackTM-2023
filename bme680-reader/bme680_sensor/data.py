@@ -10,6 +10,8 @@ class Bme680Values:
     ----------
     sensor_type: str
         Sensor type
+    location_name: str
+        Location name, e.g. "Living room". This is used to identify the location
     timestamp: int
         Timestamp in milliseconds
     temperature: float
@@ -23,6 +25,7 @@ class Bme680Values:
     """
 
     sensor_type: str
+    location_name: str
     timestamp: int
     temperature: float
     humidity: float

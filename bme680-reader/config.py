@@ -23,6 +23,10 @@ class Configurator(BaseSettings):
         Endpoint for pushing BME680 data to the cloud
     cloud_pusher_type: str
         Type of cloud pusher to use
+    location_name: str
+        Name of the location where the sensor is located
+    worker_polling_interval: int
+        Interval in seconds for polling the sensor
     bme680_sensor_type: str
         Type of BME680 sensor to use
     bme680_sensor_i2c_address: int
@@ -32,6 +36,7 @@ class Configurator(BaseSettings):
     cloud_api_key: str
     cloud_data_endpoint_bme680: str
     cloud_pusher_type: str
+    location_name: str
 
     worker_polling_interval: int
 

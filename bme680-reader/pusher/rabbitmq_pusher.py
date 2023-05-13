@@ -17,9 +17,9 @@ class RabbitMqPusher(CloudPusherBase):
         self._api_key = self._config.cloud_api_key
         self._bme_680_endpoint = self._config.cloud_data_endpoint_bme680
 
-        host, virtual_host = self._bme_680_endpoint.split('/')
+        host, virtual_host = self._bme_680_endpoint.split("/")
 
-        credentials = pika.PlainCredentials('vjrlxdnk', self._api_key)
+        credentials = pika.PlainCredentials("vjrlxdnk", self._api_key)
         self._connection = pika.BlockingConnection(
             pika.ConnectionParameters(
                 host=host, virtual_host=virtual_host, credentials=credentials

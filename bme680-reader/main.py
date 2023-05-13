@@ -31,7 +31,7 @@ def main():
 
     # sensor
     bme680_sensor = Bme680SensorFactory.get_sensor_by_type(
-        configurator.bme680_sensor_type
+        configurator.bme680_sensor_type, configurator
     )
     bme680_sensor.initialize()
 
