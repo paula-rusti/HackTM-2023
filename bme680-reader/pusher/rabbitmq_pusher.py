@@ -38,3 +38,6 @@ class RabbitMqPusher(CloudPusherBase):
         except NackError | UnroutableError as e:
             print(f"Error pushing data: {e}")
             return False
+
+    def shutdown(self):
+        self._connection.close()

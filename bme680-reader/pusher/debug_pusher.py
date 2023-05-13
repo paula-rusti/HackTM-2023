@@ -22,3 +22,6 @@ class DebugCloudPusher(CloudPusherBase):
         self._logger.info(f"Pushing data to cloud")
         self._logger.info(f"Data: {data.to_dict()}")
         return True
+
+    def shutdown(self):
+        self._logger.info("Shutting down DebugPusher")

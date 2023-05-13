@@ -53,6 +53,9 @@ def main():
     # start worker, blocks forever
     worker.start()
 
+    # shut down
+    cloud_pusher.shutdown()
+
 
 if __name__ == "__main__":
     main()

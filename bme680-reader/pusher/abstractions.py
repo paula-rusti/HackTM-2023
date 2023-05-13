@@ -10,3 +10,10 @@ class CloudPusherBase(abc.ABC):
         Push BME680 data to the cloud
         """
         raise NotImplementedError()
+
+    @abc.abstractmethod
+    def shutdown(self):
+        """
+        Shutdown the pusher
+        """
+        raise NotImplementedError()

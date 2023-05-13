@@ -39,3 +39,6 @@ class HttpCloudPusher(CloudPusherBase):
         except requests.exceptions.RequestException as e:
             self._logger.error(f"Error pushing data: {e}")
             return False
+
+    def shutdown(self):
+        self._logger.info("Shutting down HttpCloudPusher")
