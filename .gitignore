@@ -2,3 +2,9 @@ Grafana-InfluxDB/grafana
 Grafana-InfluxDB/grafana
 Ingester/data
 Ingester/rabbitmq
+
+data
+grafana
+influxdb
+kubernetes
+rabbitmq
