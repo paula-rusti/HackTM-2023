@@ -17,7 +17,7 @@ except ImportError:
 class Bme680Bosh(Bme680Base):
     def __init__(self, configurator: Configurator):
         utils.guard_against_none(configurator, "configurator")
-        self._sensor = bme680.BME680(bme680.I2C_ADDR_PRIMARY)
+        self._sensor = bme680.BME680(configurator.bme680_sensor_i2c_address)
         self._logger = logging.getLogger("Bme680Bosh")
         self._config = configurator
 
