@@ -31,3 +31,5 @@ class Bme680SensorFactory:
             return Bme680Bosh(configurator)
         elif sensor_type == "Bme680Mock":
             return Bme680Mock(configurator)
+        else:
+            raise ValueError(f"Unknown sensor type: {sensor_type}")
