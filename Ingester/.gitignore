@@ -27,6 +27,8 @@ var/
 *.egg
 
 data/
+.idea/
+rabbitmq/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
