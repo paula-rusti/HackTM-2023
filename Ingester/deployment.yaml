@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-ingester
+  labels:
+    app: data-ingester
+    owner: dnutiu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-ingester
+      owner: dnutiu
+  template:
+    metadata:
+      labels:
+        app: data-ingester
+        owner: dnutiu
+    spec:
+      containers:
+        - name: data-ingester
+          imagePullPolicy: Always
+          image: registry.digitalocean.com/piemakers/ingester:latest
+          resources:
+            requests:
+              cpu: "1"
+              memory: "1Gi"

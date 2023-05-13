@@ -11,12 +11,13 @@ from persistance.mongo_client import MongoClient
 
 
 async def consume():
+    print("started consuming")
     # todo pass clients to constructor
-    mongo_client_instance = MongoClient()
-    await mongo_client_instance.create_collection()
+    # mongo_client_instance = MongoClient()
+    # await mongo_client_instance.create_collection()
 
     # Connect to the RabbitMQ server
-    connection_string = os.getenv("RABBIT_MQ") or 'amqp://guest:guest@localhost/'
+    connection_string = 'amqp://gateway:gateway@rabbitmq/'
     connection = await aio_pika.connect_robust(connection_string)
     channel = await connection.channel()
 
@@ -32,20 +33,20 @@ async def consume():
     retention_policy = 'autogen'
 
     bucket = f'{database}/{retention_policy}'
-
+    print("started crunching data")
     async with queue.iterator() as queue_iter:
         async for message in queue_iter:
             async with message.process():
                 print("Received message:", message.body)
                 data_for_influx = json.loads(message.body)
                 formatted_data = format_data(data_for_influx)
-                with InfluxDBClient(url='http://localhost:8086', token=f'{username}:{password}', org='-') as client:
+                with InfluxDBClient(url='http://influxdb:8086', token=f'{username}:{password}', org='-') as client:
                     with client.write_api() as write_api:
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['temperature'])
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['humidity'])
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['pressure'])
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['gas_resistance'])
-                await mongo_client_instance.insert_one(json.loads(message.body))
+                # await mongo_client_instance.insert_one(json.loads(message.body))
 
 async def main():
     # Start the consumer
