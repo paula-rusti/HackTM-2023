@@ -1,0 +1,1 @@
+docker pull ajeje93/grafana-mongodb
