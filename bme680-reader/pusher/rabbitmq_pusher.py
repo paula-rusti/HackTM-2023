@@ -1,4 +1,5 @@
 import json
+import logging
 
 import pika
 from pika.exceptions import NackError, UnroutableError
@@ -13,6 +14,7 @@ class RabbitMqPusher(CloudPusherBase):
     def __init__(self, configurator: Configurator):
         utils.guard_against_none(configurator, "configurator")
         self._config = configurator
+        self._logger = logging.getLogger("RabbitMqPusher")
 
         self._api_key = self._config.cloud_api_key
         self._bme_680_endpoint = self._config.cloud_data_endpoint_bme680
@@ -26,9 +28,10 @@ class RabbitMqPusher(CloudPusherBase):
             )
         )
         self._channel = self._connection.channel()
-        self._channel.exchange_declare(exchange="sensor-data", exchange_type="fanout")
+        self._channel.exchange_declare(exchange="sensor-data", exchange_type="topic")
 
     def push_bme680_data(self, data: Bme680Values) -> bool:
+        self._logger.info(f"Pushing data to {self._bme_680_endpoint}")
         body = json.dumps(data.to_dict()).encode("utf-8")
         try:
             self._channel.basic_publish(
