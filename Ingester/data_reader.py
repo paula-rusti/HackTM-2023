@@ -1,8 +1,15 @@
 import asyncio
+import json
+
 import aio_pika
+
+from mongo_client import MongoClient
 
 
 async def consume():
+    mongo_client_instance = MongoClient()
+    await mongo_client_instance.create_collection()
+
     # Connect to the RabbitMQ server
     connection = await aio_pika.connect_robust('amqp://guest:guest@localhost/')
     channel = await connection.channel()
@@ -15,6 +22,7 @@ async def consume():
         async for message in queue_iter:
             async with message.process():
                 print("Received message:", message.body)
+                await mongo_client_instance.insert_one(json.loads(message.body))
 
 
 async def main():
