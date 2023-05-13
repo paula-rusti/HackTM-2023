@@ -285,5 +285,5 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
-
+bme680-reader.tar.gz
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,python
