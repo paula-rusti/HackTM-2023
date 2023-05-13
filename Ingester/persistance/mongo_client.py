@@ -14,7 +14,7 @@ class MongoClient:
         db_name="sensor_data_db",
     ):
         self.collection = None  # collection object, initialized in create_collection which is async
-        self.client = AsyncIOMotorClient(host, port)
+        self.client = AsyncIOMotorClient("mongodb://root:0l8MwKdttH@mongodb:27017")
         self.db = self.client[db_name]
 
     async def create_collection(self, collection_name="sensor_data", capped=True, size=1000000):

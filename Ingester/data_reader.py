@@ -13,8 +13,8 @@ from persistance.mongo_client import MongoClient
 async def consume():
     print("started consuming")
     # todo pass clients to constructor
-    # mongo_client_instance = MongoClient()
-    # await mongo_client_instance.create_collection()
+    mongo_client_instance = MongoClient()
+    await mongo_client_instance.create_collection()
 
     # Connect to the RabbitMQ server
     connection_string = 'amqp://gateway:gateway@rabbitmq/'
@@ -46,7 +46,7 @@ async def consume():
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['humidity'])
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['pressure'])
                         write_api.write(bucket="enviro", org="enviro", record=formatted_data['gas_resistance'])
-                # await mongo_client_instance.insert_one(json.loads(message.body))
+                await mongo_client_instance.insert_one(json.loads(message.body))
 
 async def main():
     # Start the consumer
