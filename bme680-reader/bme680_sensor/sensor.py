@@ -3,7 +3,7 @@ import logging
 
 from bme680_sensor.abstractions import Bme680Base
 from bme680_sensor.data import Bme680Values
-from cloud_pusher.abstractions import CloudPusherBase
+from pusher.abstractions import CloudPusherBase
 
 try:
     import bme680

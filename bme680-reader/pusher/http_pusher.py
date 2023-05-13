@@ -3,11 +3,11 @@ import requests
 
 import utils
 from bme680_sensor.data import Bme680Values
-from cloud_pusher.abstractions import CloudPusherBase
+from pusher.abstractions import CloudPusherBase
 from config import Configurator
 
 
-class CloudHttpPusher(CloudPusherBase):
+class HttpCloudPusher(CloudPusherBase):
     """
     Push data to the cloud via HTTP
     """

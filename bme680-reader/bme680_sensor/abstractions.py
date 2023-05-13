@@ -1,7 +1,7 @@
 import abc
 
 from bme680_sensor.data import Bme680Values
-from cloud_pusher.abstractions import CloudPusherBase
+from pusher.abstractions import CloudPusherBase
 
 
 class Bme680Base(abc.ABC):

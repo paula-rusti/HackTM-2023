@@ -7,8 +7,8 @@ import typing
 
 import utils
 from bme680_sensor.factory import Bme680SensorFactory
-from cloud_pusher.abstractions import CloudPusherBase
-from cloud_pusher.factory import CloudPusherFactory
+from pusher.abstractions import CloudPusherBase
+from pusher.factory import CloudPusherFactory
 from config import Configurator
 
 
@@ -53,8 +53,17 @@ class Worker(Shutdownable):
     def start(self):
         self._is_running = True
         while self._is_running:
-            print("doing stuff")
-            time.sleep(1)
+            for sensor in self._sensors:
+                retry = 0
+                while retry < 3:
+                    ok = sensor.read_data()
+                    if ok:
+                        break
+                    retry += 1
+                    time.sleep(1)
+                if retry >= 3:
+                    self._logger.error("Error reading data from sensor")
+                    continue
 
     def shutdown(self):
         self._is_running = False
