@@ -7,8 +7,8 @@ import typing
 
 import utils
 from bme680_sensor.factory import Bme680SensorFactory
-from cloud_pusher.abstractions import CloudPusherBase
-from cloud_pusher.factory import CloudPusherFactory
+from pusher.abstractions import CloudPusherBase
+from pusher.factory import CloudPusherFactory
 from config import Configurator
 
 
