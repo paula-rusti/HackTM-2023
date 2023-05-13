@@ -1,5 +1,6 @@
 import pytest
-from utils import guard_against_none, guard_against_empty
+
+from utils import guard_against_empty, guard_against_none
 
 
 def test_guard_against_none():

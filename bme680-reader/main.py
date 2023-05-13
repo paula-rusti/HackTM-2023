@@ -7,9 +7,9 @@ import typing
 
 import utils
 from bme680_sensor.factory import Bme680SensorFactory
+from config import Configurator
 from pusher.abstractions import CloudPusherBase
 from pusher.factory import CloudPusherFactory
-from config import Configurator
 
 
 class Shutdownable(abc.ABC):

@@ -1,10 +1,11 @@
 import logging
+
 import requests
 
 import utils
 from bme680_sensor.data import Bme680Values
-from pusher.abstractions import CloudPusherBase
 from config import Configurator
+from pusher.abstractions import CloudPusherBase
 
 
 class HttpCloudPusher(CloudPusherBase):
