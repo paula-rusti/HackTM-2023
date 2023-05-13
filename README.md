@@ -3,3 +3,8 @@
 
 ![Diagram](./Ingester/diagram.png)
 
+Services:
+
+- Gateway: http://gateway.piemakers.live/docs
+- Rabbit Management: http://rabbitmq.piemakers.live/
+- Grafana: http://grafana.piemakers.live/
