@@ -3,7 +3,7 @@ import json
 
 import aio_pika
 
-from mongo_client import MongoClient
+from persistance.mongo_client import MongoClient
 
 
 async def consume():
