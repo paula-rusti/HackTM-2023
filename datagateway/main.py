@@ -19,7 +19,6 @@ class Bme680Values(BaseModel):
     gas_resistance: float
 
 
-@functools.lru_cache()
 async def rabbitmq():
     connection = await connect("amqp://gateway:gateway@rabbitmq-headless/")
     channel = await connection.channel()
