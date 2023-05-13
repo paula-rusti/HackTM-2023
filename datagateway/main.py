@@ -1,9 +1,7 @@
-import functools
 import json
-from typing import Union
 
 from aio_pika import connect, Message, ExchangeType
-from fastapi import FastAPI, APIRouter, Depends, Header
+from fastapi import FastAPI, APIRouter, Header
 from pydantic import BaseModel
 
 router = APIRouter()
