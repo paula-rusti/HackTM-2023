@@ -3,12 +3,15 @@ import json
 
 import aio_pika
 
+from persistance.data_formatter import format_data
+from persistance.influx_client import write_api
 from persistance.mongo_client import MongoClient
 
 
 async def consume():
-    mongo_client_instance = MongoClient()
-    await mongo_client_instance.create_collection()
+    # todo pass clients to constructor
+    # mongo_client_instance = MongoClient()
+    # await mongo_client_instance.create_collection()
 
     # Connect to the RabbitMQ server
     connection = await aio_pika.connect_robust('amqp://guest:guest@localhost/')
@@ -22,7 +25,13 @@ async def consume():
         async for message in queue_iter:
             async with message.process():
                 print("Received message:", message.body)
-                await mongo_client_instance.insert_one(json.loads(message.body))
+                data_for_influx = json.loads(message.body)
+                formatted_data = format_data(data_for_influx)
+                write_api.write(bucket="initial_bucket", org="Home", record=formatted_data['temperature'])
+                write_api.write(bucket="initial_bucket", org="Home", record=formatted_data['humidity'])
+                write_api.write(bucket="initial_bucket", org="Home", record=formatted_data['pressure'])
+                write_api.write(bucket="initial_bucket", org="Home", record=formatted_data['gas_resistance'])
+                # await mongo_client_instance.insert_one(json.loads(message.body))
 
 
 async def main():

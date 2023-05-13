@@ -1,0 +1,9 @@
+{
+  "sensor_type": "Bme680Bosh",
+  "location_name": "HackTM2023 - Craft",
+  "timestamp": 1683977102438,
+  "temperature": 22.68,
+  "humidity": 54.114,
+  "pressure": 1011.23,
+  "gas_resistance": 274224.4536061566
+}

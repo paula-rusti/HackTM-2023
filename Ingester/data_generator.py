@@ -1,24 +1,14 @@
 import asyncio
+import json
 import random
-import time
-from datetime import datetime, timedelta
 
 import aio_pika
-import json
+
 
 def create_message():
-    # Define the message data
-    # start_date = datetime(2022, 1, 1)
-    # end_date = datetime(2022, 12, 31)
-    # random_timestamp = (
-    #         start_date
-    #         + timedelta(
-    #             seconds=random.randint(0, int((end_date - start_date).total_seconds()))
-    #         )
-    #     ).isoformat,
-
     message_data = {
         "sensor_type": "temperature_sensor_mock",
+        "location_name": "HackTM2023 - Craft",
         "timestamp": 121234324234532,
         "temperature": random.uniform(-30.0, 100.0),
         "humidity": random.uniform(0.0, 1.0),
@@ -50,7 +40,7 @@ async def publish_message():
         await exchange.publish(
             aio_pika.Message(body=json.dumps(message_json).encode()), routing_key="sensor_data"
         )
-        await asyncio.sleep(1)
+        await asyncio.sleep(0.01)
 
         # Close the connection
         # await connection.close()
