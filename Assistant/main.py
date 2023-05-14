@@ -35,8 +35,8 @@ async def status_latest_values(x_api_key:str = Header(...)):
     #     "gas_resistance": 274224.4536061566
     # }
     # query openai with sensor daa and get response
-    query = f"I have the following data for you:\n temperature {document['temperature']}°C, humidity {document['humidity']}%.\n Is it nice here for humans? What data values did I give you, please respond with the numbers. \n Please respond short and don't include the fact that you're an AI model. "
-    open_ai_token = "sk-"
+    query = f"I have the following data for you:\n temperature {document['temperature']}°C, humidity {document['humidity']}%.\n Is the climate pleasant for humans? What are the data values, please respond with the numbers. \n Please respond short and don't include the fact that you're an AI model. "
+    open_ai_token = "sk-\"
     openai.api_key = open_ai_token
     openai.organization = "org-nyQ7qUk1cEqkIC6hVucb6iBv"
     response = openai.ChatCompletion.create(
